@@ -1,0 +1,23 @@
+{
+  "name": "smite-discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taylorjohannsen/smite-stats-discord-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taylorjohannsen/smite-stats-discord-bot/issues"
+  },
+  "homepage": "https://github.com/taylorjohannsen/smite-stats-discord-bot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
