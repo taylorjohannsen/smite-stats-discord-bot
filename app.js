@@ -17,7 +17,7 @@ bot.on('ready', () => {
 
 bot.on('message', (message) => {
     const args = message.content.split(/ +/)
-    const command = args[0]
+    const command = args[0] 
 
     if (!bot.commands.has(command)) return
 
