@@ -1,13 +1,12 @@
 # smite-stats-discord-bot
-Documentation -
 
-# !player [Smite player name]
+!player [Smite player name]
     - returns player stats
 
-# !matches [Smite player name]
+!matches [Smite player name]
     - returns the last 5 player matches
 
-# !player [leaderboard name]
+!leader [leaderboard name]
     - returns leaderboard from stored mongo datatbase 
     - available leaderboards: 
         kills
