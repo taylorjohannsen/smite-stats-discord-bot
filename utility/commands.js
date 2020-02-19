@@ -26,7 +26,7 @@ module.exports = {
                         inline: false
                     }
 
-                    embed.addField(dataObj.name, dataObj.value, dataObj.inline)
+                    if (dataObj.value !== '') embed.addField(dataObj.name, dataObj.value, dataObj.inline)
                 }
 
                 msg.channel.send(embed);
