@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { RichEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
     Player: {
@@ -7,14 +7,14 @@ module.exports = {
         description: 'Gets player profile data',
         async execute(msg, args) {
             try {
-                let playerData = await axios.get('https://api.smite.taylorjohannsen.com/discord/player/' + args[1]).then(res => { return res.data })
+                let playerData = await axios.get('https://api.smite.taylorjohannsen.com/discord/player/' + args[1]).then(res => { return res.data }).catch(err => console.log(err))
 
-                const embed = new RichEmbed()
+                const embed = new EmbedBuilder()
 
                 embed.setTitle(playerData.name + ' - ' + `[${playerData.team}]`) 
                 embed.setColor(3447003)
                 embed.setThumbnail(playerData.icon)
-                embed.setAuthor('Click here for more stats!', '', 'https://smite.taylorjohannsen.com/player/' + args[1])
+                embed.setAuthor({name : 'Click here for more stats!', url: 'https://smite.taylorjohannsen.com/player/' + args[1]})
 
                 let objArray = Object.entries(playerData)
                 objArray.splice(0, 2)
@@ -26,10 +26,10 @@ module.exports = {
                         inline: false
                     }
 
-                    embed.addField(dataObj.name, dataObj.value, dataObj.inline)
+                    embed.addFields({ name: dataObj.name, value: dataObj.value, inline: dataObj.inline})
                 }
 
-                msg.channel.send(embed);
+                msg.channel.send({ embeds: [embed]});
             }
 
             catch(err) {
