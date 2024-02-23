@@ -45,7 +45,7 @@ module.exports = {
             try {
                 let playerData = await axios.get('https://api.smite.taylorjohannsen.com/discord/matches/' + args[1]).then(res => { return res.data }).catch(err => { throw err.message })
                 const smallArray = playerData.matches.slice(0, 5)  
-                const embed = new RichEmbed()
+                const embed = new EmbedBuilder()
 
                 embed.setTitle('Last 5 Matches - ' + args[1]) 
                 embed.setColor('#ff0000')
@@ -53,10 +53,10 @@ module.exports = {
                 for await (let match of smallArray) {
                     const checkWin = match.win ? 'Win' : 'Lose'
                     const matchConstructor = `${match.godName} - ${match.length} mins - K/D/A ${match.kills} / ${match.deaths} / ${match.assists} - Wards: ${match.wards} - ${checkWin}!`
-                    embed.addField(match.mode + ' - ' + match.date, matchConstructor)
+                    embed.addFields({ name: match.mode + ' - ' + match.date, value: matchConstructor})
                 }
 
-                msg.channel.send(embed);
+                msg.channel.send({ embeds: [embed]});
             }
 
             catch(err) {
@@ -71,20 +71,20 @@ module.exports = {
         async execute(msg, args) {
             try {
                 let playerData = await axios.get('https://api.smite.taylorjohannsen.com/discord/mongo/' + args[1]).then(res => { return res.data }).catch(err => { throw err.message })
-                const embed = new RichEmbed()
+                const embed = new EmbedBuilder()
 
                 embed.setTitle('Leaderboard - ' + upperCase(args[1])) 
                 embed.setColor('#ffa500')
 
                 for await (let element of playerData) {
                     if (element.god.name === '') {
-                        embed.addField(element.player, element.count)
+                        embed.addFields({ name: element.player, value: element.count.toString()})
                     } else {
-                        embed.addField(element.player + ' - ' + element.god.name + ' - ' + element.date, element.count)
+                        embed.addFields({ name: element.player + ' - ' + element.god.name + ' - ' + element.date, value:  element.count.toString() })
                     }
                 }
 
-                msg.channel.send(embed);
+                msg.channel.send({ embeds: [embed]});
             }
 
             catch(err) {
